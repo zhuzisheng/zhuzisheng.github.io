@@ -31,7 +31,10 @@ egret_h5.startGame = function () {
     context.deviceContext = new egret.HTML5DeviceContext();
     context.netContext = new egret.HTML5NetContext();
 
-    egret.StageDelegate.getInstance().setDesignSize(480, 800);
+    var w = 640;
+    var h = 870;
+
+    egret.StageDelegate.getInstance().setDesignSize(w,h);
     context.stage = new egret.Stage();
     var scaleMode =  egret.MainContext.deviceType == egret.MainContext.DEVICE_MOBILE ? egret.StageScaleMode.SHOW_ALL : egret.StageScaleMode.NO_SCALE;
     context.stage.scaleMode = scaleMode;
@@ -47,6 +50,7 @@ egret_h5.startGame = function () {
 
     egret.MainContext.instance.rendererContext.texture_scale_factor = 1;
     context.run();
+
     //处理屏幕大小改变
     var resizeTimer = null;
     var doResize = function () {
@@ -58,6 +62,7 @@ egret_h5.startGame = function () {
             resizeTimer = setTimeout(doResize, 300);
         }
     };
+
     var rootClass;
     if(document_class){
         rootClass = egret.getDefinitionByName(document_class);
@@ -65,6 +70,8 @@ egret_h5.startGame = function () {
     if(rootClass) {
         var rootContainer = new rootClass();
         if(rootContainer instanceof egret.DisplayObjectContainer){
+            rootContainer.rotation = 90;
+            rootContainer.x = w;
             context.stage.addChild(rootContainer);
         }
         else{

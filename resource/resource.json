@@ -1,13 +1,22 @@
 {
-"resources":
-	[
-		{"name":"bgImage","type":"image","url":"assets/bg.jpg"},
-		{"name":"egretIcon","type":"image","url":"assets/egret_icon.png"},
-        {"name":"description","type":"json","url":"config/description.json"}
-	],
+    "resources":
+        [
+            {"name":"bgImage","type":"image","url":"assets/bg.png"},
+            {"name":"logo","type":"image","url":"assets/logo.png"},
+            {"name":"ground","type":"image","url":"assets/ground.png"},
+            {"name":"pipe","type":"image","url":"assets/pipe.png"},
+            {"name":"egretIcon","type":"image","url":"assets/egret_icon.png"},
+            {"name":"monkey_png","type":"image","url":"assets/monkey.png"},
+            {"name":"monkey_json","type":"json","url":"assets/monkey.json"},
+            {"name":"description", "type":"json", "url":"config/description.json"},
+            {"name":"bird", "type":"image", "url":"assets/clumsy.png"},
+            {"name":"bird_json", "type":"json", "url":"assets/clumsy.json"}
+        ],
 
-"groups":
-	[
-        {"name":"preload","keys":"bgImage,egretIcon"}
-	]
+    "groups":
+        [
+            {"name":"preload","keys":"bgImage, logo, ground, bird, bird_json,pipe"},
+            {"name":"demo2","keys":"egretIcon"},
+            {"name":"demo3","keys":"monkey_png, monkey_json"}
+        ]
 }
