@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>石器时代2</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<script type="text/javascript" src="js/jquery-1.10.1.min.js" ></script>
+<script type="text/javascript" src="js/jquery.touchSwipe.min.js"></script>
+<script type="text/javascript" src="js/js.js" ></script>
+
+<script>
+	if(/Android (\d+\.\d+)/.test(navigator.userAgent)){
+	var version = parseFloat(RegExp.$1);
+	if(version>2.3){
+		var phoneScale = parseInt(window.screen.width)/640;
+		document.write('<meta name="viewport" content="width=640, minimum-scale = '+ phoneScale +', maximum-scale = '+ phoneScale +', target-densitydpi=device-dpi">');
+	}else{
+		document.write('<meta name="viewport" content="width=640, target-densitydpi=device-dpi">');
+	}
+}else{
+	document.write('<meta name="viewport" content="width=640, user-scalable=no, target-densitydpi=device-dpi">');
+}
+//微信去掉下方刷新栏
+if(navigator.userAgent.indexOf('MicroMessenger') >= 0){
+	document.addEventListener('WeixinJSBridgeReady', function() {
+		//WeixinJSBridge.call('hideToolbar');
+	});
+}
+
+	$(function(){
+		$(".fx").click(function(){
+			$(".guanzhu").show()
+		});
+		$(".guanzhu").click(function(){
+			$(".guanzhu").hide()
+		});
+	$(".imageBox4").click(function(){
+			$(".tishi").show()
+			$("#begin4").show()
+		});
+	$("#begin4").click(function(){
+		$(this).hide()
+		$(".container").show()
+		$(".tishi").hide()
+	})
+	$(".imageBox5").click(function(){
+		$(".tishi").show()
+		$("#begin5").show()
+	})
+	$("#begin5").click(function(){
+		$(this).hide()
+		$(".container2").show()
+		$(".tishi").hide()
+	})
+	$(".imageBox6").click(function(){
+		$(".tishi").show()
+		$("#begin6").show()
+		})
+	$("#begin6").click(function(){
+		$(this).hide()
+		$(".container3").show()
+		$(".tishi").hide()
+	})
+	$(".close").click(function(){
+		$(".tishi").hide()
+		$(".begin").hide()
+	})
+	var _left=window.innerWidth-$(".first").innerWidth();
+	$(".important").css('left',_left/2)
+	var options =
+	{
+		thumbBox: '.thumbBox',
+		spinner: '.spinner',
+		
+	}
+	var cropper = $('.imageBox').cropbox(options);
+	$('#upload-file').on('change', function(){
+		var reader = new FileReader();
+		reader.onload = function(e) {
+			options.imgSrc = e.target.result;
+			cropper = $('.imageBox').cropbox(options);
+		}
+		reader.readAsDataURL(this.files[0]);
+		this.files = [];
+	})
+	$('#btnCrop').on('click', function(){
+		var img = cropper.getDataURL();
+		$('.container').hide();
+		$('.imageBox4').html('');
+		$('.imageBox4').append('<img src="'+img+'" align="absmiddle" style="width:100px;border-radius:50px;box-shadow:0px 0px 12px #7E7E7E;">');
+	})
+	$('#btnZoomIn').on('click', function(){
+		cropper.zoomIn();
+	})
+	$('#btnZoomOut').on('click', function(){
+		cropper.zoomOut();
+	})
+	
+	
+	var options2 =
+	{
+		thumbBox: '.thumbBox2',
+		spinner: '.spinner2',
+		
+	}
+	var cropper2 = $('.imageBox2').cropbox(options2);
+	$('#upload-file2').on('change', function(){
+		var reader2 = new FileReader();
+		reader2.onload = function(e) {
+			options2.imgSrc = e.target.result;
+			cropper2 = $('.imageBox2').cropbox(options2);
+		}
+		reader2.readAsDataURL(this.files[0]);
+		this.files = [];
+	})
+	$('#btnCrop2').on('click', function(){
+		var img2 = cropper2.getDataURL();
+		$('.container2').hide();
+		$('.imageBox5').html('');
+		$('.imageBox5').append('<img src="'+img2+'" align="absmiddle" style="width:170px;border-radius:85px;box-shadow:0px 0px 12px #7E7E7E;">');
+	})
+	$('#btnZoomIn2').on('click', function(){
+		cropper2.zoomIn();
+	})
+	$('#btnZoomOut2').on('click', function(){
+		cropper2.zoomOut();
+	})
+	
+	var options3 =
+	{
+		thumbBox: '.thumbBox3',
+		spinner: '.spinner3',
+		
+	}
+	var cropper3 = $('.imageBox3').cropbox(options3);
+	$('#upload-file3').on('change', function(){
+		var reader3 = new FileReader();
+		reader3.onload = function(e) {
+			options3.imgSrc = e.target.result;
+			cropper3 = $('.imageBox3').cropbox(options3);
+		}
+		reader3.readAsDataURL(this.files[0]);
+		this.files = [];
+	})
+	$('#btnCrop3').on('click', function(){
+		var img3 = cropper3.getDataURL();
+		$('.container3').hide();
+		$('.imageBox6').html('');
+		$('.imageBox6').append('<img src="'+img3+'" align="absmiddle" style="width:80px;border-radius:40px;box-shadow:0px 0px 12px #7E7E7E;">');
+	})
+	$('#btnZoomIn3').on('click', function(){
+		cropper3.zoomIn();
+	})
+	$('#btnZoomOut3').on('click', function(){
+		cropper3.zoomOut();
+	})
+	
+	
+	
+	
+	})
+	
+</script>
+<script type="text/javascript" src="js/cropbox.js"></script>
+</head>
+<body background="img/body-bg.png">
+<div style="width: 100%;height: 100%;position: absolute;top: 0;left: 0;z-index: 900;" id="top">
+			<img src='img/load.gif' style="width: 40px;height: 40px;position: absolute;top: 50%;left: 50%;margin-top: -20px;margin-left: -20px;">
+		</div>
+<div class="music">
+				<div class="rotate current2"></div>
+				<audio loop src="img/music.mp3" autoplay preload id="music"></audio>
+</div>
+<div class="important">
+	<div class="first hide">
+		<img src="img/first-bg.png" style="position: absolute;width: 100%; height: 100%;"/>
+	<img src="img/cyywn.png"   class="cyywn"/>
+	<img src="img/logo.png"  class="logo"/>
+	<img src="img/logo-main.png"  class="logo-main"/>
+	<img src="img/first-bt.png"  class="first-bt"/>
+	</div>
+	
+	<div class="second hide xia">
+	<img src="img/second-bg.png" style="position: absolute;width: 100%; height: 100%;opacity: 0;-webkit-animation:first-bg 0.3s 0.3s linear forwards"/>
+	<img  src="img/logo-top.png" class="logo-top"/>
+	<img src="img/second-jb.png" class="second-jb" />
+	<img src="img/second-mg.png"  class="second-mg"/>
+	<img src="img/second-text-bg.png"  class="three-text-bg"/>
+	<img src="img/second-text.png"  class="three-text"/>
+	<img src="img/second-bl.png"  class="second-bl"/>
+	<img src="img/second-eight.png" class="biao"/>
+	<img src="img/button.png" class="shanghua"/>
+	</div>
+	<div class="three hide xia">
+	<img src="img/three-bg.png" style="position: absolute;width: 100%; height: 100%;-webkit-transform:translate3d(-100%,0,0);-webkit-animation:second-bg 0.3s 0.3s linear forwards"/>
+	<img src="img/three-fs.png" class="three-fs"/>
+	<img  src="img/logo-top.png" class="logo-top"/>
+	<img src="img/three-st.png"  class="three-st"/>
+	<img src="img/three-text-bg.png"  class="three-text-bg"/>
+	<img src="img/three-text.png"  class="three-text"/>
+	<img src="img/jb.png" class="jb"/>
+	<img src="img/sp.png"  class="sp"/>
+	<img src="img/st.png"  class="st"/>
+	<img src="img/secont-st-left.png"  class="four-yun-left"/>
+	<img src="img/second-st-right.png"  class="four-yun-right"/>
+	<img src="img/three-left.png" class="biao"/>
+	<img src="img/button.png" class="shanghua"/>
+	</div>
+	<div class="four hide xia">
+	<img src="img/four-bg.png" style="position: absolute;width: 100%; height: 100%;opacity:0;-webkit-animation:three-bg 0.3s 0.3s linear forwards"/>
+	<img src="img/four-fs.png"  class="four-fs"/>
+	<img  src="img/four-yun-st.png" style="position: absolute;width: 100%; height: 100%;opacity:0;-webkit-animation:goShow 0.5s 1s linear forwards"/>
+	<img src="img/four-by-shan.png" class="four-by-shan"/>
+	<img src="img/four-by.png" class="four-by"/>
+	<img  src="img/logo-top.png" class="logo-top"/>
+	<img src="img/four-text-bg.png"  class="three-text-bg"/>
+	<img src="img/four-text.png"  class="three-text"/>
+	<img src="img/four-yun-left.png"  class="four-yun-left"/>
+	<img src="img/four-yun-right.png"  class="four-yun-right"/>
+	<img src="img/four-right.png" class="biao"/>
+	<img src="img/button.png" class="shanghua"/>
+	</div>
+	<div class="five hide xia">
+	<img src="img/five-bg.png" style="position: absolute;width: 100%; height: 100%;-webkit-transform:translate3d(0,-100%,0);-webkit-animation:four-bg 0.3s 0.3s linear forwards"/>
+	<img  src="img/logo-top.png" class="logo-top"/>
+	<img src="img/five-center.png"  class="five-center"/>
+	<img src="img/five-st.png"  class="five-st"/>
+	<img src="img/five-text-bg.png"  class="three-text-bg"/>
+	<img src="img/five-text.png"  class="three-text"/>
+	<img src="img/five-mogu-left.png" class="five-mogu-left"/>
+	<img src="img/five-mogu-right.png" class="five-mogu-right"/>
+	<img src="img/five-shuye.png"  class="sy1"/>
+	<img src="img/five-shye-2.png"  class="sy2"/>
+	<img src="img/five-shuye.png"  class="sy3"/>
+	<img src="img/five-shye-2.png"  class="sy4"/>
+	<img src="img/five-shuye.png"  class="sy5"/>
+	<img src="img/five-shye-2.png"  class="sy6"/>
+	<img src="img/five-right.png" class="biao"/>
+	<img src="img/yanwu.png" class="yanwu"/>
+	<img src="img/button.png" class="shanghua"/>
+	</div>
+	<div class="six hide xia">
+	<img src="img/last-bg.png" style="position: absolute;width: 100%; height: 100%;"/>
+	<img src="img/logo.png"  class="logo"/>
+	<img src="img/last-renwu2.png"  class="last-renwu"/>
+	<div class="last-xx">
+		<img src="img/last-text-bg.png"  class="last-text-bg current"/>
+		<img src="img/last-wz.png"  class="last-wz"/>
+	</div>
+	<img src="img/logo-main.png"  class="last-logo"/>
+	<img src="img/last-rwm.png" class="last-ewm"/>
+	<img src="img/fx.png"  class="fx"/>
+	<img src="img/fxhy.png"  class="fxhy"/>
+	<img src="img/guanzhu.png"  class="guanzhu hide"/>
+	<!--<img src="img/left.png" class="left"/>
+	<img src="img/right.png"  class="right"/>-->
+	<img src="img/hpyyq.png"  class="ts"/>
+	<img src="img/button.png" class="shanghua"/>
+	<div class="imageBox5"></div>
+	<div class="imageBox6"></div>
+	<div class="container2 hide" >
+	  <div class="imageBox2">
+	    <div class="thumbBox2"></div>
+	    <div class="spinner2" style="display: none">Loading...</div>
+	  </div>
+	  <div class="action2"> 
+	
+	    <div class="new-contentarea2 tc2"> <a href="javascript:void(0)" class="upload-img2">
+	      <label for="upload-file2">上传图像</label>
+	      </a>
+	      <input type="file" capture="camera" accept="image/*" name="upload-file" id="upload-file2" />
+	    </div>
+	    <input type="button" id="btnCrop2"  class="Btnsty_peyton" value="裁切">
+	    <input type="button" id="btnZoomIn2" class="Btnsty_peyton" value="放大"  >
+	    <input type="button" id="btnZoomOut2" class="Btnsty_peyton" value="缩小" >
+	  </div>
+	  
+	</div>
+	 
+	
+	 <div class="container3 hide" >
+	  <div class="imageBox3">
+	    <div class="thumbBox3"></div>
+	    <div class="spinner3" style="display: none">Loading...</div>
+	  </div>
+	  <div class="action3"> 
+	
+	    <div class="new-contentarea3 tc3"> <a href="javascript:void(0)" class="upload-img3">
+	      <label for="upload-file3">上传图像</label>
+	      </a>
+	      <input type="file" capture="camera" accept="image/*" name="upload-file" id="upload-file3" />
+	    </div>
+	    <input type="button" id="btnCrop3"  class="Btnsty_peyton" value="裁切">
+	    <input type="button" id="btnZoomIn3" class="Btnsty_peyton" value="放大"  >
+	    <input type="button" id="btnZoomOut3" class="Btnsty_peyton" value="缩小" >
+	  </div>
+	  
+	</div>
+	
+	</div>
+	
+	<div class="seven hide xia">
+	<img src="img/last-bg.png" style="position: absolute;width: 100%; height: 100%;"/>
+	<img src="img/logo.png"  class="logo"/>
+	<img src="img/last-renwu.png"  class="last-renwu"/>
+	<div class="last-xx">
+		<img src="img/last-text-bg.png"  class="last-text-bg current"/>
+		<img src="img/last-wz.png"  class="last-wz"/>
+	</div>
+	<img src="img/logo-main.png"  class="last-logo"/>
+	<img src="img/last-rwm.png" class="last-ewm"/>
+	<img src="img/fx.png"  class="fx"/>
+	<img src="img/fxhy.png"  class="fxhy"/>
+	<img src="img/guanzhu.png"  class="guanzhu hide"/>
+	<img src="img/bskb.png"  class="ts"/>
+	<div class="imageBox4"></div>
+	
+	<div class="container hide" >
+	  <div class="imageBox">
+	    <div class="thumbBox"></div>
+	    <div class="spinner" style="display: none">Loading...</div>
+	  </div>
+	  <div class="action"> 
+	
+	    <div class="new-contentarea tc"> <a href="javascript:void(0)" class="upload-img">
+	      <label for="upload-file">上传图像</label>
+	      </a>
+	      <input type="file" capture="camera" accept="image/*" name="upload-file" id="upload-file" />
+	    </div>
+	    <input type="button" id="btnCrop"  class="Btnsty_peyton" value="裁切">
+	    <input type="button" id="btnZoomIn" class="Btnsty_peyton" value="放大"  >
+	    <input type="button" id="btnZoomOut" class="Btnsty_peyton" value="缩小" >
+	  </div>
+	  
+		</div>
+	</div>
+	<div class="tishi hide">
+		<img src="img/ts.png" class="tishi-main"/>
+		<img src="img/begin.png" class="begin hide" id="begin4"/>
+		<img src="img/begin.png" class="begin hide" id="begin5"/>
+		<img src="img/begin.png" class="begin hide" id="begin6"/>
+		<img src="img/close.png" class="close"/>
+	</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">  
+    var dataForWeixin = {  
+        appId: "",  
+        img: "img/zftp.png",
+        url: '',  
+        title: '石器时代2 - 3D正版',
+        desc: '别睡了，石器时代2（3D正版）约你起来嗨，新鲜搞笑自拍，骑着朋友遛弯', 
+        fakeid: "",  
+    };  
+    (function() {  
+        var onBridgeReady = function() {  
+            // 发送给好友;  
+            WeixinJSBridge.on('menu:share:appmessage', function(argv) {  
+                WeixinJSBridge.invoke('sendAppMessage', {  
+                    "appid": dataForWeixin.appId,  
+                    "img_url": dataForWeixin.img,  
+                    "img_width": "120",  
+                    "img_height": "120",  
+                    "link": dataForWeixin.url,  
+                    "desc": dataForWeixin.desc,  
+                    "title": dataForWeixin.title  
+                }, function(res) {  
+                    _hmt.push(['_trackEvent', 'durexworldcup', 'share', 'wechat', 'friend']);  
+                });  
+            });  
+            // 分享到朋友圈;  
+            WeixinJSBridge.on('menu:share:timeline', function(argv) {  
+                WeixinJSBridge.invoke('shareTimeline', {  
+                    "img_url": dataForWeixin.img,  
+                    "img_width": "120",  
+                    "img_height": "120",  
+                    "link": dataForWeixin.url,  
+                    "desc": dataForWeixin.desc,  
+                    "title": dataForWeixin.desc  
+                }, function(res) {  
+                    _hmt.push(['_trackEvent', 'durexworldcup', 'share', 'wechat', 'friends']);  
+                });  
+            });  
+        };  
+        if (document.addEventListener) {  
+            document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);  
+        } else if (document.attachEvent) {  
+            document.attachEvent('WeixinJSBridgeReady', onBridgeReady);  
+            document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);  
+        }  
+    })();  
+</script>
