@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Bootstrap, from Twitter</title>
+    <title>中国加油！</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -57,20 +57,24 @@
       <h1>上海</h1>
 
     <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
-<table class="table">
+<div id="pic1">
+    </div>
+<div id="pic2">
+    </div>
+<table id="tbdetail" class="table">
 <thead>
 <tr>
-<th scope="col">日期</th>
+<!--<th scope="col">日期</th>
 <th scope="col">新增</th>
 <th scope="col">确诊</th>
 <th scope="col">疑似</th>
 <th scope="col">排除疑似</th>
 <th scope="col">治愈</th>
-<th scope="col">死亡</th>
-</tr>
+<th scope="col">死亡</th>-->
+</tr> 
 </thead>
 <tbody>
-<tr><th scope="row">1/20</td><td>6</td><td>6</td><td>3</td><td></td><td></td><td></td></tr>
+<!-- <tr><th scope="row">1/20</td><td>6</td><td>6</td><td>3</td><td></td><td></td><td></td></tr>
 <tr><th scope="row">1/21</td><td>3</td><td>9</td><td>10</td><td></td><td></td><td></td></tr>
 <tr><th scope="row">1/22</td><td>7</td><td>16</td><td>22</td><td></td><td></td><td></td></tr>
 <tr><th scope="row">1/23</td><td>4</td><td>20</td><td>34</td><td></td><td></td><td></td></tr>
@@ -87,9 +91,10 @@
 <tr><th scope="row">2/3</td><td>15</td><td>208</td><td>168</td><td>523</td><td>10</td><td>1</td></tr>
 <tr><th scope="row">2/4</td><td>25</td><td>233</td><td>194</td><td>585</td><td>12</td><td>1</td></tr>
 <tr><th scope="row">2/5</td><td>22</td><td>254</td><td>196</td><td>664</td><td>15</td><td>1</td></tr>
-<tr><th scope="row">2/6</td><td>3</td><td>257</td><td>238</td><td>676</td><td>25</td><td>1</td></tr>
+<tr><th scope="row">2/6</td><td>3</td><td>257</td><td>238</td><td>676</td><td>25</td><td>1</td></tr> -->
 </tbody></table>
     </div>
+
 
     ​
     <hr> 
@@ -107,67 +112,127 @@
 	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.0.4/js/bootstrap.min.js"></script>
 	<script src="http://code.highcharts.com/highcharts.js"></script>
 	<script src="http://code.highcharts.com/modules/exporting.js"></script>
-	<script type="text/javascript">
+    <script type="text/javascript">
+    $(document).ready(function() {
+        var d = null;
+        $.ajax({url: "http://zhuzisheng.github.io/shanghai.csv", 
+                success: function(data) {
+                            console.log("test");
+                            d = data;;
+                            },
+                async: false});
+        console.log(d);
+   
+        var lines = d.split("\n");
+        var cols = lines[0].split(",");
+        for(var i=0; i<cols.length; i++) {
+            $("#tbdetail thead tr").append("<th scope=\"col\">" + cols[i] + "</th>");
+        }
+        for (var i=1; i<lines.length; i++) {
+            var line = lines[i];
+            var data = line.split(",");
+            var l = "<tr>";
+            for(var j=0; j<data.length; j++) {
+                if(j===0) {
+                    l += "<th scope=\"row\">" + data[j]  + "</th>";
 
-/*     $(document).ready(function() {
+                }else {
+                    l += "<td>" + data[j]  + "</td>";
+                } 
+            }
+            l += "</tr>"
+            $("#tbdetail tbody").append(l);
+        }
+        sdata = [];
+        sdata1 = [];
+        sdata2 = [];
+        for(var i=1; i<lines.length; i++) {
+            var data = lines[i].split(',');
+            if(data[0] != "") {
+                var date = data[0].split('/');
+                console.log(date);
+                date = Date.UTC(2020, parseInt(date[0]) - 1, parseInt(date[1]))
+                sdata.push([date, parseInt(data[1])]); 
+                sdata1.push([date, parseInt(data[2])]);
+                sdata2.push([date, parseInt(data[3])]);
+            }
+        }
         chart = new Highcharts.Chart({
             chart: {
-                renderTo: 'container',
-                type: 'column'
+                renderTo: 'pic1',
+                type: 'spline'
             },
             title: {
-                text: 'Cache Hits By Location'
+                text: '每日新增'
             },
 
+            subtitle: {
+                text: '数据源: 上海市卫健委 http://wsjkw.sh.gov.cn/yqtb/index.html'
+            },
             xAxis: {
-                categories: ['Los Angeles', 'Seattle', 'New York', 'Atlanta', 'Amsterdam','Dallas','Miami','Chicago','Virginia','London'],
+                type: 'datetime',
+                //dateTimeLabelFormats: { // don't display the dummy year
+                //    month: '%e. %b',
+                //    year: '%b'
+                //},
                 title: {
-                    text: null
+                    text: '日期'
                 }
             },
             yAxis: {
-                min: 0,
                 title: {
-                    text: 'Number of Requests',
-                    align: 'high'
-                },
-                labels: {
-                    overflow: 'justify'
-                }
-            },
-            tooltip: {
-                formatter: function() {
-                    return ''+
-                        this.series.name +': '+ this.y +' requests';
-                }
-            },
-            plotOptions: {
-                bar: {
-                    dataLabels: {
-                        enabled: true
-                    }
+                    text: '人数'
                 }
             },
             legend: {
                 layout: 'vertical',
                 align: 'right',
-                verticalAlign: 'top',
-                x: -100,
-                y: 100,
-                floating: true,
-                borderWidth: 1,
-                backgroundColor: '#FFFFFF',
-                shadow: true
+                verticalAlign: 'middle'
             },
-            credits: {
-                enabled: false
+
+            series: [{
+                name: '新增病例',
+                data: sdata
+            }],
+        });
+        chart1 = new Highcharts.chart({
+                chart: {
+                    renderTo: 'pic2',
+                },
+            title: {
+                text: '确诊 + 疑似'
+            },
+            xAxis: {
+                type: 'datetime',
+                //dateTimeLabelFormats: { // don't display the dummy year
+                //    month: '%e. %b',
+                //    year: '%b'
+                //},
+                title: {
+                    text: '日期'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: '人数'
+                }
             },
             series: [{
-                name: 'Cache Hits',
-                data: [671462, 192140, 262184, 201143, 527451, 108029, 55, 133202, 49084, 416191]
+                type: 'column',
+                name: '确诊',
+                data: sdata1
+            }, {
+                type: 'spline',
+                name: '疑似',
+                data: sdata2,
+                marker: {
+                    lineWidth: 2,
+                    lineColor: Highcharts.getOptions().colors[3],
+                    fillColor: 'white'
+                }
             }]
         });
-    }); */
+    }); 
     
 	</script>
 
