@@ -147,7 +147,7 @@
         for(var i=0; i<cols.length; i++) {
             $("#tbdetail thead tr").append("<th scope=\"col\">" + cols[i] + "</th>");
         }
-        for (var i=1; i<lines.length; i++) {
+        for (var i= lines.length - 1; i > 0; i--) {
             var line = lines[i];
             var data = line.split(",");
             var l = "<tr>";
