@@ -160,7 +160,9 @@
                 } 
             }
             l += "</tr>"
-            $("#tbdetail tbody").append(l);
+	    if(data[0] !== "") {
+            	$("#tbdetail tbody").append(l);
+	    }
         }
         sdata = [];
         sdata1 = [];
