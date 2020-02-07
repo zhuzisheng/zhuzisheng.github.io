@@ -71,7 +71,7 @@
     <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto">
 <div id="pic1" style="height: 300px">
     </div>
-<div id="pic2">
+<div id="pic2"  style="height: 300px">
     </div>
 <table id="tbdetail" class="table">
 <thead>
@@ -182,7 +182,7 @@
             "type": "line",
             "utc": true,
             "title": {
-                "text": "Webpage Analytics",
+                "text": "每日新增病例",
                 "font-size": "24px",
                 "adjust-layout": true
             },
@@ -217,7 +217,6 @@
                 "label": {
                     "visible": false
                 },
-                "minor-ticks": 0
             },
             "scale-y": {
                 "line-color": "#f6f7f8",
@@ -226,7 +225,7 @@
                     "line-style": "dashed"
                 },
                 "label": {
-                    "text": "Page Views",
+                    "text": "人数",
                 },
                 "minor-ticks": 0,
                 "thousands-separator": ","
@@ -251,7 +250,7 @@
             },
             "plot": {
                 "highlight": true,
-                "tooltip-text": "%t views: %v<br>%k",
+                "tooltip-text": "%t views: %v",
                 "shadow": 0,
                 "line-width": "2px",
                 "marker": {
@@ -269,6 +268,7 @@
             },
             "series": [{
                     "values": sdata,
+                    aspect: "spline",
                     "text": "新增",
                     "line-color": "#007790",
                     "legend-item": {
@@ -299,6 +299,67 @@
             height: '100%',
             width: '100%'
         });
+        var myconfig2 = {
+            type: "mixed", // 1. Specify your mixed chart type.
+            "title": {
+                "text": "确诊 + 疑似",
+                "font-size": "24px",
+                "adjust-layout": true
+            },
+            plot: {
+              "tooltip-text": "%t: %v",
+            },
+            "legend": {
+                "layout": "float",
+                "background-color": "none",
+                "border-width": 0,
+                "shadow": 0,
+                "align": "center",
+                "adjust-layout": true,
+                "toggle-action": "remove",
+                "item": {
+                    "padding": 7,
+                    "marginRight": 17,
+                    "cursor": "hand"
+                }
+            },
+            "scale-x": {
+                "transform": {
+                    "type": "date",
+                    "all": "%m/%d",
+                    "guide": {
+                        "visible": false
+                    },
+                    "item": {
+                        "visible": false
+                    }
+                },
+                "label": {
+                    "visible": false
+                },
+                "minor-ticks": "1day"
+            },
+            series: [ // 2. Specify the chart type for each series object.
+              {
+                type: "bar",
+                values: sdata1,
+                "width": "100%", 
+                text: "确诊"
+              },
+              {
+                type: 'line',
+                values: sdata2,
+                aspect: "spline",
+                text: "疑似"
+              }
+            ]
+        };
+        zingchart.render({
+            id: 'pic2',
+            data: myconfig2,
+            height: '100%',
+            width: '100%'
+        })
     }); 
     
 	</script>
